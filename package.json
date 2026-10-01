@@ -1,0 +1,44 @@
+{
+  "name": "spectra-harness",
+  "version": "1.0.0",
+  "description": "Next-Gen Open-Weight AI Evaluation, Adversarial Red-Teaming & Agent Skill Ecosystem",
+  "main": "src/core/harness.js",
+  "bin": {
+    "spectra": "./bin/spectra.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "cli": "node bin/spectra.js",
+    "test": "node --test tests/*.test.js",
+    "validate-skill": "node src/core/validator/skill-validator.js skills/spectra-model-eval/SKILL.md",
+    "audit:quick": "node bin/spectra.js run --suite redteam --model mock-smollm2"
+  },
+  "keywords": [
+    "open-weight",
+    "llm-evaluation",
+    "model-harness",
+    "agent-skills",
+    "adversarial-red-teaming",
+    "token-entropy",
+    "ai-safety",
+    "transformers",
+    "smollm",
+    "qwen",
+    "ollama"
+  ],
+  "author": "SpectraHarness Open Source Community",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taushifarani/spectra-harness.git"
+  },
+  "bugs": {
+    "url": "https://github.com/taushifarani/spectra-harness/issues"
+  },
+  "homepage": "https://github.com/taushifarani/spectra-harness#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,44 @@
+name: SpectraHarness Model Safety & Agent Skill CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  audit-and-validate:
+    name: Model Audit & Skill Compliance Verification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: |
+          npm ci || npm install --legacy-peer-deps
+
+      - name: 📜 Validate Agent Skill Open Standard (agentskills.io)
+        run: |
+          npm run validate-skill
+
+      - name: 🧪 Run Harness Unit & Integration Tests
+        run: |
+          npm test
+
+      - name: 🛡️ Execute Model Adversarial Red-Teaming Audit
+        run: |
+          node bin/spectra.js audit --suite adversarial_redteam --format markdown --save audit-results.md
+
+      - name: 📊 Upload Audit Report Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: spectra-model-audit-report
+          path: audit-results.md
